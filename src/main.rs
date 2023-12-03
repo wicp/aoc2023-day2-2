@@ -46,24 +46,14 @@ impl Colours {
             blue,
         }
     }
-
-    fn exceeds(self: Self, maxes: &Self) -> bool {
-        if self.red > maxes.red ||
-           self.blue > maxes.blue ||
-           self.green > maxes.green {
-                true
-        }
-        else { false }
-    }
 }
 
 fn main() {
-    let maxes = Colours::new(12,13,14);
     let mut total: u32 = 0;
     let input = std::fs::read_to_string("./input.txt").expect("could not read input.txt in current directory");
     for game in input.lines() {
-        let (id, colours) = parse_game(game);
-        if !colours.exceeds(&maxes) {total += id}
+        let (_, colours) = parse_game(game);
+        total += colours.red * colours.blue * colours.green;
     }
     println!("{}", total)
 }
